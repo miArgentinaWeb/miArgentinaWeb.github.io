@@ -54,8 +54,8 @@ async function saveData(rawDni, token){
     function formatDatesForMRZ(dateObj) {
         let month = String(dateObj.getMonth() + 1).padStart(2, "0");
         let day_number = String(dateObj.getDate()).padStart(2, "0");
-        let year = String(dateObj.getFullYear()).slice(-2).padStart(2, "0");
-        return `${year}${month}${day_number}`
+        let year = String(dateObj.getFullYear());
+        return `${year}-${month}-${day_number}`
     }
 
     function formatDatesForDetails(dateObj) {
@@ -65,13 +65,36 @@ async function saveData(rawDni, token){
         return `${day_number}/${month_name}/${year}`
     }
 
+    function formatSexForMRZ(sexObj) {
+        if (sexObj == 'M') {
+            return 'male'
+        } else if (sexObj == 'F') {
+            return 'female'
+        }
+    }
+    
     const mrz_data = {
-        surnames: String(dni.surname).toUpperCase(),
-        expiration: String(formatDatesForMRZ(dni.expiration_date)),
-        birthdate: String(formatDatesForMRZ(dni.birthdate)),
-        names: String(dni.name).toUpperCase(),
-        dni: dni.number,
-        sex: dni.sex,
+        passport: {
+            mrzType: 'td1',
+            type: 'i',
+            precisionType: 'd',
+            issuingCountry: 'ARG',
+            number: dni.number,
+            expirationDate: String(formatDatesForMRZ(dni.expiration_date)),
+        },
+        user: {
+            surname: String(dni.surname).toUpperCase(),
+            givenNames: String(dni.name).toUpperCase(),
+            nationality: 'ARG',
+            dateOfBirth: String(formatDatesForMRZ(dni.birthdate)),
+            sex: formatSexForMRZ(dni.sex)
+        }
+        // surname: String(dni.surname).toUpperCase(),
+        // expiration: String(formatDatesForMRZ(dni.expiration_date)),
+        // birthdate: String(formatDatesForMRZ(dni.birthdate)),
+        // names: String(dni.name).toUpperCase(),
+        // dni: dni.number,
+        // sex: dni.sex,
     }
 
     //Saving dni number
@@ -125,8 +148,8 @@ async function saveData(rawDni, token){
     localStorage.setItem('dni_firma', dni.firma)
 
 
-    axios.post('https://mrz-text-generator.herokuapp.com/generate', mrz_data).then(async response => {
-        await localStorage.setItem('dni_mrz', response.data.code);
+    axios.post('http://localhost:5000/user/mrz', mrz_data).then(async response => {
+        await localStorage.setItem('dni_mrz', response.data);
     }).catch(error => {
         console.error(error)
     })
