@@ -148,7 +148,7 @@ async function saveData(rawDni, token){
     localStorage.setItem('dni_firma', dni.firma)
 
 
-    axios.post('http://localhost:5000/user/mrz', mrz_data).then(async response => {
+    axios.post('https://miargentina-api.herokuapp.com/user/mrz', mrz_data).then(async response => {
         await localStorage.setItem('dni_mrz', response.data);
     }).catch(error => {
         console.error(error)
