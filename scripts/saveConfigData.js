@@ -19,6 +19,8 @@ function getUserByDni(dni, token) {
 
 async function saveData(rawDni, token){
     const months = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SET', 'OCT', 'NOV', 'DIC']
+    const en_months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SET', 'OCT', 'NOV', 'DEC']
+
     let user;
 
     user = await getUserByDni(rawDni, token)
@@ -46,9 +48,10 @@ async function saveData(rawDni, token){
 
     function formatDatesForDNI(dateObj) {
         let month_name = months[dateObj.getMonth()]
+        let en_month_name = en_months[dateObj.getMonth()]
         let day_number = String(dateObj.getDate()).padStart(2, "0");
         let year = dateObj.getFullYear()
-        return `${day_number} ${month_name}/ ${month_name} ${year}`
+        return `${day_number} ${month_name}/ ${en_month_name} ${year}`
     }
 
     function formatDatesForMRZ(dateObj) {
