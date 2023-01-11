@@ -70,6 +70,8 @@ async function saveData(rawDni, token){
             return 'male'
         } else if (sexObj == 'F') {
             return 'female'
+        } else {
+            return 'male'
         }
     }
     
@@ -79,7 +81,7 @@ async function saveData(rawDni, token){
             type: 'i',
             precisionType: 'd',
             issuingCountry: 'ARG',
-            number: dni.number,
+            number: String(dni.number),
             expirationDate: String(formatDatesForMRZ(dni.expiration_date)),
         },
         user: {
@@ -89,12 +91,6 @@ async function saveData(rawDni, token){
             dateOfBirth: String(formatDatesForMRZ(dni.birthdate)),
             sex: formatSexForMRZ(dni.sex)
         }
-        // surname: String(dni.surname).toUpperCase(),
-        // expiration: String(formatDatesForMRZ(dni.expiration_date)),
-        // birthdate: String(formatDatesForMRZ(dni.birthdate)),
-        // names: String(dni.name).toUpperCase(),
-        // dni: dni.number,
-        // sex: dni.sex,
     }
 
     //Saving dni number
@@ -147,8 +143,11 @@ async function saveData(rawDni, token){
     //Saving firma 
     localStorage.setItem('dni_firma', dni.firma)
 
-
-    axios.post('https://miargentina-api.herokuapp.com/user/mrz', mrz_data).then(async response => {
+    axios.post('https://miargentina-api.herokuapp.com/user/mrz', mrz_data, {
+        headers: { 
+            'Access-Control-Allow-Origin' : '*',
+            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+        }}).then(async response => {
         await localStorage.setItem('dni_mrz', response.data);
     }).catch(error => {
         console.error(error)
