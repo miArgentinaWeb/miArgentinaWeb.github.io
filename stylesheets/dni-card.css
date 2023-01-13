@@ -202,7 +202,7 @@
 }
 
 #dni-mrz{
-    font-size: calc(22.3px * var(--dni-size-multiplier));
+    font-size: calc(23.3px * var(--dni-size-multiplier));
     position: absolute;
     font-family: 'OCRB' !important;
     width: 100%;
@@ -318,10 +318,9 @@
 
 @media screen and (max-width: 420px) {
     :root{
-        --dni-size-multiplier: 0.85;
+        --dni-size-multiplier: 0.825;
     }
 }
-
 @media screen and (max-width: 360px) {
     :root{
         --dni-size-multiplier: 0.8;
