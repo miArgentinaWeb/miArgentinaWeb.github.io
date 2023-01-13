@@ -77,6 +77,10 @@ async function saveData(rawDni, token){
             return 'male'
         }
     }
+
+    const removeAccents = (str) => {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    } 
     
     const mrz_data = {
         passport: {
@@ -88,8 +92,8 @@ async function saveData(rawDni, token){
             expirationDate: String(formatDatesForMRZ(dni.expiration_date)),
         },
         user: {
-            surname: String(dni.surname).toUpperCase(),
-            givenNames: String(dni.name).toUpperCase(),
+            surname: removeAccents(String(dni.surname).toUpperCase()),
+            givenNames: removeAccents(String(dni.name).toUpperCase()),
             nationality: 'ARG',
             dateOfBirth: String(formatDatesForMRZ(dni.birthdate)),
             sex: formatSexForMRZ(dni.sex)
