@@ -202,13 +202,13 @@
 }
 
 #dni-mrz{
-    font-size: calc(1.4rem * var(--dni-size-multiplier));
+    font-size: calc(22.3px * var(--dni-size-multiplier));
     position: absolute;
     font-family: 'OCRB' !important;
     width: 100%;
     left: 0;
     right: 0;
-    bottom: calc(5px * var(--dni-size-multiplier));
+    bottom: calc(9px * var(--dni-size-multiplier));
     line-height: 25px;
     display: flex;
     flex-direction: column;
@@ -321,6 +321,7 @@
         --dni-size-multiplier: 0.85;
     }
 }
+
 @media screen and (max-width: 360px) {
     :root{
         --dni-size-multiplier: 0.8;
