@@ -79,6 +79,8 @@ async function saveData(rawDni, token){
     }
 
     const removeAccents = (str) => {
+        str = str.replaceAll('Ñ', 'NXX')
+
         return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     } 
     
@@ -100,6 +102,10 @@ async function saveData(rawDni, token){
         }
     }
 
+    function replaceCharWithUpperCase(str) {
+        return str.replaceAll('Ñ', 'ñ');
+    }
+
     //Saving dni number
     localStorage.setItem('dni_numero_raw', dni.number);
     localStorage.setItem('dni_numero', String(dni.number).replace(/(.)(?=(\d{3})+$)/g,'$1.'));
@@ -110,7 +116,7 @@ async function saveData(rawDni, token){
 
     //Saving surname
     localStorage.setItem('dni_surname_raw', dni.surname);
-    localStorage.setItem('dni_surname', String(dni.surname).toUpperCase());
+    localStorage.setItem('dni_surname', replaceCharWithUpperCase(String(dni.surname).toUpperCase()));
 
     //Saving sex
     localStorage.setItem('dni_sex_raw', dni.sex);
