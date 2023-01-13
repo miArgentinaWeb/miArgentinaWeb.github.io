@@ -202,7 +202,7 @@
 }
 
 #dni-mrz{
-    font-size: calc(23.3px * var(--dni-size-multiplier));
+    font-size: calc(22.3px * var(--dni-size-multiplier));
     position: absolute;
     font-family: 'OCRB' !important;
     width: 100%;
