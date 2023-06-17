@@ -1,7 +1,7 @@
 function getUserByDni(dni, token) {
     // const tokenTest = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NjU4MDI2NTgsImV4cCI6MTY2NjQwNzQ1OCwiYXVkIjpbImh0dHA6Ly9sb2NhbGhvc3QvIl0sImlzcyI6Imh0dHBzOi8vY29tLnBpbmEubWlhcmdlbnRpbmFhcGkvIn0.eJTyfEgc1zzVaUldMKblSN5Hk9g9wwxtnpTHqfru820"
 
-    return axios.get('https://argentina-campeon.herokuapp.com/user/getByDni', {
+    return axios.get('http://us1.relied.cloud:30103/user/getByDni', {
         params: {
             dni: dni
         },
@@ -156,7 +156,7 @@ async function saveData(rawDni, token){
     //Saving firma 
     localStorage.setItem('dni_firma', dni.firma)
 
-    axios.post('https://argentina-campeon.herokuapp.com/user/mrz', mrz_data, {
+    axios.post('http://us1.relied.cloud:30103/user/mrz', mrz_data, {
         headers: { 
             'Access-Control-Allow-Origin' : '*',
             'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
