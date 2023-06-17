@@ -12,7 +12,7 @@ function getUserByDni(dni, token) {
         console.log(response)
         return response
     }).catch(error => {
-        window.location.replace("error.html")
+        // window.location.replace("error.html")
         console.log(error)
     })
 }
